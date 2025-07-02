@@ -43,7 +43,7 @@ public class ClienteDAO implements IClienteDAO {
 
 	private String getSqlInsert() {
 		StringBuilder sb=new StringBuilder();
-		sb.append("INSERT INTO TB_CLIENTE_2(ID,CODIGO,NOME)");
+		sb.append("INSERT INTO TB_CLIENTE_2(ID,CODIGO,NOME) ");
 		sb.append("VALUES (nextval('SQ_CLIENTE_2'),?,?)");
 
 		return sb.toString();
@@ -71,15 +71,15 @@ public class ClienteDAO implements IClienteDAO {
 	private void adicionarParametrosUpdate(PreparedStatement stm, Cliente cliente) throws SQLException {
 		stm.setString(1,cliente.getCodigo());
 		stm.setString(2,cliente.getNome());
-		stm.setLong(2,cliente.getId());
+		stm.setLong(3,cliente.getId());
 
 	}
 
 	private String getSqlUpdate() {
 		StringBuilder sb=new StringBuilder();
 		sb.append("UPDATE TB_CLIENTE_2 ");
-		sb.append("SET NOME= ?, CODIGO= ? ");
-		sb.append("WHERE ID= ?");
+		sb.append("SET NOME = ?, CODIGO = ? ");
+		sb.append("WHERE ID = ?");
 		
 		return sb.toString();
 	}
@@ -125,10 +125,11 @@ public class ClienteDAO implements IClienteDAO {
 
 	private String getSqlSelect() {
 		StringBuilder sb=new StringBuilder();
-		sb.append("SELECT * FROM TB_CLIENTE_2");
-		sb.append("WHERE CODIGO= ?");
+		sb.append("SELECT * FROM TB_CLIENTE_2 ");
+		sb.append("WHERE CODIGO = ? ");
 		
-		return sb.toString();	}
+		return sb.toString();	
+		}
 
 	@Override
 	public List<Cliente> buscarTodos() throws Exception {
@@ -197,8 +198,8 @@ public class ClienteDAO implements IClienteDAO {
 
 	private String getSqlDelete() {
 		StringBuilder sb=new StringBuilder();
-		sb.append("DELETE FROM TB_CLIENTE_2");
-		sb.append("WHERE CODIGO= ?");
+		sb.append("DELETE FROM TB_CLIENTE_2 ");
+		sb.append("WHERE CODIGO= ? ");
 		
 		return sb.toString();
 	}

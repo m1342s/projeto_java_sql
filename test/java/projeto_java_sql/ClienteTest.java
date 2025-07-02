@@ -75,8 +75,8 @@ public class ClienteTest {
 		assertTrue(countCad==1);
 		
 		Cliente clientes=new Cliente();
-		cliente.setCodigo("20");
-		cliente.setNome("Teste");
+		clientes.setCodigo("20");
+		clientes.setNome("Teste");
 		Integer countCad2=clienteDAO.cadastrar(clientes);
 		assertTrue(countCad2==1);
 		
@@ -119,14 +119,12 @@ public class ClienteTest {
 		Cliente clienteBD1=clienteDAO.buscar("10");
 		assertNull(clienteBD1);
 		
-		
 		Cliente clienteBD2=clienteDAO.buscar("20");
 		assertNotNull(clienteBD2);
 		assertEquals(clienteBD.getId(),clienteBD2.getId());
-		assertEquals(clienteBD.getCodigo(),clienteBD2.getCodigo());
+		assertEquals(cliente.getCodigo(),clienteBD.getCodigo());
 		assertEquals(clienteBD.getNome(),clienteBD2.getNome());
-
-
+		
 		List<Cliente> list=clienteDAO.buscarTodos();
 		
 		
