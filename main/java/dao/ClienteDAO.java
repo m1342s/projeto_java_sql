@@ -69,10 +69,9 @@ public class ClienteDAO implements IClienteDAO {
 	}
 
 	private void adicionarParametrosUpdate(PreparedStatement stm, Cliente cliente) throws SQLException {
-		stm.setString(1,cliente.getCodigo());
-		stm.setString(2,cliente.getNome());
-		stm.setLong(3,cliente.getId());
-
+		stm.setString(1, cliente.getNome());
+		stm.setString(2, cliente.getCodigo());
+		stm.setLong(3, cliente.getId());
 	}
 
 	private String getSqlUpdate() {

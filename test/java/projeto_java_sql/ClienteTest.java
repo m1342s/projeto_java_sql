@@ -7,12 +7,28 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import dao.ClienteDAO;
 import dao.IClienteDAO;
 
 public class ClienteTest {
+	
+	@Before
+	public void setup() throws Exception {
+
+	  clienteDAO = new ClienteDAO();
+
+	  List<Cliente> clientes = clienteDAO.buscarTodos();
+
+	  for (Cliente cliente : clientes) {
+
+	    clienteDAO.excluir(cliente);
+
+	  }
+
+	}
 	
 	private IClienteDAO clienteDAO;
 	
@@ -34,6 +50,7 @@ public class ClienteTest {
 		assertTrue(countDel==1);
 		
 	}
+	
 	@Test
 	public void buscarTest() throws Exception{
 		clienteDAO=new ClienteDAO();
@@ -64,6 +81,8 @@ public class ClienteTest {
 		assertEquals(cliente.getCodigo(),clienteBD.getCodigo());
 		assertEquals(cliente.getNome(),clienteBD.getNome());
 	}
+	
+	
 	
 	@Test
 	public void  buscarTodosTest() throws Exception{
@@ -99,36 +118,35 @@ public class ClienteTest {
 	
 	@Test
 	public void  atualizarTest() throws Exception{
-		clienteDAO=new ClienteDAO();
-		Cliente cliente=new Cliente();
+clienteDAO = new ClienteDAO();
+		
+		Cliente cliente = new Cliente();
 		cliente.setCodigo("10");
 		cliente.setNome("Rodrigo Pires");
-		Integer countCad=clienteDAO.cadastrar(cliente);
-		assertTrue(countCad==1);
+		Integer countCad = clienteDAO.cadastrar(cliente);
+		assertTrue(countCad == 1);
 		
-		Cliente clienteBD=clienteDAO.buscar("10");
+		Cliente clienteBD = clienteDAO.buscar("10");
 		assertNotNull(clienteBD);
-		assertEquals(cliente.getCodigo(),clienteBD.getCodigo());
-		assertEquals(cliente.getNome(),clienteBD.getNome());
+		assertEquals(cliente.getCodigo(), clienteBD.getCodigo());
+		assertEquals(cliente.getNome(), clienteBD.getNome());
 		
 		clienteBD.setCodigo("20");
 		clienteBD.setNome("Outro nome");
-		Integer countUpdate=clienteDAO.atualizar(clienteBD);
-		assertTrue(countUpdate==1);
+		Integer countUpdate = clienteDAO.atualizar(clienteBD);
+		assertTrue(countUpdate == 1);
 		
-		Cliente clienteBD1=clienteDAO.buscar("10");
+		Cliente clienteBD1 = clienteDAO.buscar("10");
 		assertNull(clienteBD1);
 		
-		Cliente clienteBD2=clienteDAO.buscar("20");
+		Cliente clienteBD2 = clienteDAO.buscar("20");
 		assertNotNull(clienteBD2);
-		assertEquals(clienteBD.getId(),clienteBD2.getId());
-		assertEquals(cliente.getCodigo(),clienteBD.getCodigo());
-		assertEquals(clienteBD.getNome(),clienteBD2.getNome());
+		assertEquals(clienteBD.getId(), clienteBD2.getId());
+		assertEquals(clienteBD.getCodigo(), clienteBD2.getCodigo());
+		assertEquals(clienteBD.getNome(), clienteBD2.getNome());
 		
-		List<Cliente> list=clienteDAO.buscarTodos();
-		
-		
-		for(Cliente cli:list) {
+		List<Cliente> list = clienteDAO.buscarTodos();
+		for (Cliente cli : list) {
 			clienteDAO.excluir(cli);
 		}
 		
